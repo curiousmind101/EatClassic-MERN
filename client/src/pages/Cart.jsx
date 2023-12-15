@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import EmptyCart from "../components/EmptyCart";
 import { addToCart, deleteFromCart } from "../actions/cartAction";
@@ -8,8 +8,6 @@ import Checkout from "../components/Checkout";
 // import { BsFillCartFill } from "react-icons/bs";
 
 const Cart = () => {
-  const [address, setAddress] = useState("");
-  const [telephone, setTelephone] = useState();
   const cartState = useSelector((state) => state.cartReducer);
   const cartItems = cartState.cartItems;
   const dispatch = useDispatch();
@@ -93,72 +91,14 @@ const Cart = () => {
             </div>
             <div className="m-2 font-semibold flex">₹{subTotal}</div>
           </div>
-          <div className="m-4">
-            <div className="mb-4">
-              <label
-                for="CompleteAddress"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
-                Your Complete Address
-              </label>
-              <input
-                type="text"
-                name="CompleteAddress"
-                id="CompleteAddress"
-                onChange={(e) => {
-                  setAddress(e.target.value);
-                }}
-                value={address}
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                placeholder="Address Line, City, State, ZIP"
-                required=""
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                for="telephone"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
-                Your Mobile Number
-              </label>
-              <input
-                type="tel"
-                name="telephone"
-                id="telephone"
-                onChange={(e) => {
-                  setTelephone(e.target.value);
-                }}
-                value={telephone}
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                placeholder="1234567890"
-                required=""
-              />
-            </div>
-            <div>
-              <p className="text-orange-500 font-semibold">
-                **order cannot be cancelled once placed
-              </p>
-            </div>
-            <div className="flex">
-              <Checkout address={address} telephone={telephone} />
-            </div>
+          <div>
+            <p className="text-orange-500 font-semibold">
+              **order cannot be cancelled once placed
+            </p>
           </div>
-          {/* <div className="flex justify-between">
-            <div className="m-2 font-normal">Govt. Texes and GST </div>
-            <div className="m-2 font-medium">
-              ₹{parseFloat(subTotal * 0.05).toFixed(2)}
-            </div>
+          <div className="flex">
+            <Checkout />
           </div>
-          <div className="flex justify-between">
-            <div className="m-2 font-normal">Deliver Charges</div>
-            <div className="m-2 font-medium">₹{49}</div>
-          </div>
-          <hr className="bg-gray-500 w-10/12 mx-auto my-5 h-0.5"></hr>
-          <div className="flex justify-between">
-            <div className="m-2 font-semibold">Total</div>
-            <Checkout total={Total} />
-            <div className="m-2 font-semibold">₹{Total}</div>
-          </div> */}
         </div>
       )}
     </div>

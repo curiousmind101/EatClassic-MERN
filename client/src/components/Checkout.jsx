@@ -6,11 +6,11 @@ import { useSelector } from "react-redux";
 // import * as dotenv from "dotenv";
 // dotenv.config();
 
-const Checkout = ({ address, telephone }) => {
+const Checkout = () => {
   //Payment Handler
 
   const cartState = useSelector((state) => state.cartReducer);
-  // const currentUser = useSelector((state) => state.userLoginReducer);
+  const userState = useSelector((state) => state.userLoginReducer);
   const cartItems = cartState.cartItems;
 
   const makePayments = async () => {
@@ -18,10 +18,11 @@ const Checkout = ({ address, telephone }) => {
       "pk_test_51O6v30SCTZlpp0ghmYJ1hQG01aBYrubvQzlP3RNSbuGUHXBy2j7dUi40InpmfwRKgtKP3LwewJ3bNG8utohVUN7t00lanNRAlL"
     );
 
-    const completeAddress = { address, telephone };
+    // const completeAddress = { address, telephone };
+    const items = cartItems.map((item) => ({ ...item, image: "" }));
     const body = {
-      products: cartItems,
-      address: completeAddress,
+      products: items,
+      userId: userState.currentUser._id,
     };
 
     const headers = {
@@ -29,7 +30,7 @@ const Checkout = ({ address, telephone }) => {
     };
 
     const response = await fetch(
-      "http://localhost:8080/api/create-checkout-session",
+      "http://localhost:8080/api/payment/create-checkout-session",
       {
         method: "POST",
         headers: headers,

@@ -20,6 +20,7 @@ const Navbar = () => {
   const [mode, setMode] = useState(false);
   const logoutHandler = () => {
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("orders");
     window.location.href = "/";
   };
   // const dispatch = useDispatch();

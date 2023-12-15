@@ -1,46 +1,25 @@
 // import express from "express";
 import mongoose from "mongoose";
 
-const orderSchema = mongoose.Schema(
+const orderSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    userid: {
-      type: String,
-      required: true,
-    },
-    orderItems: [],
-
-    shippingAddress: {
-      type: Object,
-      required: true,
-    },
-    isDelivered: {
-      type: Boolean,
-      required: true,
-    },
-    orderAmount: {
-      type: Number,
-      required: true,
-    },
-    trasactionId: {
-      type: String,
-      required: true,
-    },
-    phone: {
-      type: Number,
-      required: true,
-    },
+    userId: { type: String, required: true },
+    products: [
+      {
+        productId: { type: String },
+        quantity: { type: Number, default: 1 },
+        name: { type: String, required: true },
+      },
+    ],
+    subtotal: { type: Number, required: true },
+    total: { type: Number, required: true },
+    shipping: { type: Object, required: true },
+    delivery_status: { type: String, default: "pending" },
+    payment_status: { type: String, required: true },
   },
   { timestamps: true }
 );
 
-const orderModel = mongoose.model("order", orderSchema);
+const Order = mongoose.model("order", orderSchema);
 
-export default orderModel;
+export default Order;
